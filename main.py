@@ -4,8 +4,7 @@ from cryptography import x509
 from cryptography.hazmat.backends import default_backend
 from termcolor import colored
 
-SSL_DIR = "/app/ssl" # In Docker Container
-# SSL_DIR = "./ssl" # In Local Development
+SSL_DIR = "./ssl"
 
 def check_ssl_expiration(domain):
     cert_path = os.path.join(SSL_DIR, domain, "fullchain.pem")
