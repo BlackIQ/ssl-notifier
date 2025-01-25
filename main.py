@@ -4,8 +4,11 @@ from cryptography import x509
 from cryptography.hazmat.backends import default_backend
 from termcolor import colored
 
+SSL_DIR = "/app/ssl" # In Docker Container
+# SSL_DIR = "./ssl" # In Local Development
+
 def check_ssl_expiration(domain):
-    cert_path = os.path.join("ssl", domain, "fullchain.pem")
+    cert_path = os.path.join(SSL_DIR, domain, "fullchain.pem")
     
     if not os.path.exists(cert_path):
         print(f"[WARNING] Certificate file not found for domain: {domain}")
@@ -28,7 +31,7 @@ def check_ssl_expiration(domain):
         print(f"[ERROR] Failed to process certificate for domain {domain}: {e}")
 
 if __name__ == "__main__":
-    domains = [d for d in os.listdir("ssl") if os.path.isdir(os.path.join("ssl", d))]
+    domains = [d for d in os.listdir(SSL_DIR) if os.path.isdir(os.path.join(SSL_DIR, d))]
 
     for domain in domains:
         check_ssl_expiration(domain)
